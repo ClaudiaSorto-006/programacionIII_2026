@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión</title>
+
+    <!-- Tailwind (CDN: sirve para desarrollo) -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tu CSS propio -->
+    <link rel="stylesheet" href="/static/css/estilos.css">
+</head>
+
+<body class="text-slate-800 antialiased">
+
+<section class="min-h-screen grid lg:grid-cols-[1.1fr_1fr]">
+
+    <!-- ===== Panel de marca (solo pantallas grandes) ===== -->
+    <div class="relative hidden lg:flex flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-teal-900 p-14 text-white">
+        <div class="fondo-cuadricula absolute inset-0"></div>
+        <div class="absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-teal-500/20 blur-3xl"></div>
+
+        <div class="relative flex items-center gap-3 text-xl font-bold">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-teal-500 text-slate-900">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </span>
+            MiSistema
+        </div>
+
+        <div class="relative max-w-lg">
+            <h2 class="text-5xl font-extrabold leading-[1.1] tracking-tight">Todo tu equipo, <br>bajo control.</h2>
+            <p class="mt-5 text-lg text-slate-300">Registra y consulta a tus usuarios desde un panel simple, rápido y seguro.</p>
+
+            <ul class="mt-10 space-y-4 text-slate-200">
+                <li class="flex items-center gap-3">
+                    <span class="grid h-6 w-6 place-items-center rounded-full bg-teal-500/20 text-teal-300">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    Registro de usuarios en segundos
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="grid h-6 w-6 place-items-center rounded-full bg-teal-500/20 text-teal-300">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    Información siempre actualizada
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="grid h-6 w-6 place-items-center rounded-full bg-teal-500/20 text-teal-300">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    Acceso protegido con tu cuenta
+                </li>
+            </ul>
+        </div>
+
+        <p class="relative text-sm text-slate-400">© 2026 MiSistema</p>
+    </div>
+
+    <!-- ===== Formulario ===== -->
+    <div class="fondo-suave flex items-center justify-center p-6 sm:p-12">
+        <div class="w-full max-w-md">
+
+            <!-- Logo (solo en móvil/tablet) -->
+            <div class="mb-8 flex items-center gap-3 text-xl font-bold text-slate-900 lg:hidden">
+                <span class="grid h-10 w-10 place-items-center rounded-xl bg-teal-600 text-white">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </span>
+                MiSistema
+            </div>
+
+            <div class="rounded-3xl bg-white p-8 shadow-xl shadow-slate-200/70 ring-1 ring-slate-200/70 sm:p-10">
+                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Bienvenido</h1>
+                <p class="mt-2 text-slate-500">Ingresa tus datos para entrar al sistema.</p>
+
+                <!-- Mensaje de error (lo muestra login.js) -->
+                <div id="mensaje-error" role="alert"
+                     class="mt-6 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                    Usuario o clave incorrectos. Revisa tus datos e inténtalo de nuevo.
+                </div>
+
+                <form id="form-login" class="mt-8 space-y-5">
+
+                    <div>
+                        <label for="usuario" class="mb-1.5 block text-sm font-semibold text-slate-700">Usuario</label>
+                        <div class="relative">
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM4 21a8 8 0 0116 0"/></svg>
+                            </span>
+                            <input type="text" id="usuario" placeholder="Escriba su usuario" required autocomplete="username"
+                                   class="w-full rounded-xl border border-slate-300 bg-white py-3 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="clave" class="mb-1.5 block text-sm font-semibold text-slate-700">Clave</label>
+                        <div class="relative">
+                            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4M6 11h12a1 1 0 011 1v8a1 1 0 01-1 1H6a1 1 0 01-1-1v-8a1 1 0 011-1z"/></svg>
+                            </span>
+                            <input type="password" id="clave" placeholder="Escriba su clave" required autocomplete="current-password"
+                                   class="w-full rounded-xl border border-slate-300 bg-white py-3 pl-12 pr-20 text-slate-900 placeholder:text-slate-400 transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100">
+                            <button type="button" id="ver-clave"
+                                    class="absolute inset-y-0 right-0 px-4 text-sm font-semibold text-slate-500 hover:text-teal-700">Ver</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-entrar"
+                            class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 py-3.5 font-bold text-white shadow-lg shadow-teal-600/30 transition hover:from-teal-600 hover:to-teal-700 focus:ring-4 focus:ring-teal-200 disabled:cursor-not-allowed disabled:opacity-60">
+                        Ingresar
+                    </button>
+                </form>
+            </div>
+
+            <p class="mt-6 text-center text-sm text-slate-500">¿Problemas para entrar? Contacta al administrador.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<script src="/static/js/login.js"></script>
+</body>
+</html>

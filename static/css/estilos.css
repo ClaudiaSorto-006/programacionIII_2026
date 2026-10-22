@@ -1,0 +1,35 @@
+/* ===== CSS propio del proyecto ===== */
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* Cuadrícula sutil del panel izquierdo */
+.fondo-cuadricula {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* Fondo suave del lado del formulario */
+.fondo-suave {
+  background:
+    radial-gradient(60rem 30rem at 100% 0%, rgba(20, 184, 166, 0.10), transparent 60%),
+    radial-gradient(40rem 25rem at 0% 100%, rgba(15, 23, 42, 0.05), transparent 60%),
+    #f8fafc;
+}
+
+/* Quita el azul feo del autocompletado de Chrome */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  -webkit-text-fill-color: #0f172a;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
