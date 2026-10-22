@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+{% block encabezado %}Inicio{% endblock %}
+
+{% block contenido %}
+<div class="flex flex-wrap items-end justify-between gap-2">
+    <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Inicio</h1>
+        <p class="text-slate-500">Bienvenido de nuevo. Este es el resumen de tus usuarios.</p>
+    </div>
+    <p id="fecha-hoy" class="text-sm text-slate-500"></p>
+</div>
+
+<!-- Tarjetas -->
+<div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <p class="text-sm font-medium text-slate-500">Usuarios registrados</p>
+        <p class="mt-4 text-4xl font-extrabold text-slate-900">{{ total }}</p>
+    </div>
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <p class="text-sm font-medium text-slate-500">Con teléfono</p>
+        <p class="mt-4 text-4xl font-extrabold text-slate-900">{{ con_telefono }}</p>
+    </div>
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <p class="text-sm font-medium text-slate-500">Con dirección</p>
+        <p class="mt-4 text-4xl font-extrabold text-slate-900">{{ con_direccion }}</p>
+    </div>
+    <div class="rounded-2xl bg-slate-900 p-6 text-white shadow-sm">
+        <p class="text-sm font-medium text-slate-300">Último registrado</p>
+        <p class="mt-4 truncate text-xl font-bold">{{ ultimos[0].nombre if ultimos else 'Sin registros' }}</p>
+        <a href="/usuarios" class="mt-3 inline-block text-sm font-semibold text-teal-300 hover:text-teal-200">Ir a usuarios</a>
+    </div>
+</div>
+
+<!-- Gráfico y tabla -->
+<div class="mt-4 grid gap-4 lg:grid-cols-5">
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 lg:col-span-2">
+        <h3 class="font-bold text-slate-900">Perfiles completos</h3>
+        <p class="text-sm text-slate-500">Usuarios con nombre, dirección y teléfono.</p>
+        <div class="relative mx-auto mt-6 h-56 w-56">
+            <canvas id="grafico-perfiles" data-completos="{{ completos }}" data-incompletos="{{ total - completos }}"></canvas>
+        </div>
+    </div>
+
+    <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 lg:col-span-3">
+        <div class="border-b border-slate-200 px-6 py-4">
+            <h3 class="font-bold text-slate-900">Últimos usuarios</h3>
+            <p class="text-sm text-slate-500">Los 5 registros más recientes.</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-slate-50 text-slate-500">
+                    <tr>
+                        <th class="px-6 py-3 font-semibold">Nombre</th>
+                        <th class="px-6 py-3 font-semibold">Usuario</th>
+                        <th class="px-6 py-3 font-semibold">Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for u in ultimos %}
+                    <tr class="hover:bg-slate-50">
+                        <td class="px-6 py-3.5 font-semibold text-slate-900">{{ u.nombre }}</td>
+                        <td class="px-6 py-3.5 text-slate-600">{{ u.usuario }}</td>
+                        <td class="px-6 py-3.5 text-slate-600">{{ u.telefono or '—' }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" class="px-6 py-10 text-center text-slate-500">Todavía no hay usuarios registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="/static/js/index.js"></script>
+{% endblock %}
